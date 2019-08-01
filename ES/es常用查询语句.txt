@@ -72,6 +72,7 @@ cf-content-1/_alias
 -----------order by orderId asc
 cf-channel-content/_search
 {
+  "from" : 0, "size" : 10,
   "query": {
     "bool": {
       "filter": [
@@ -143,6 +144,7 @@ cf-content-4/_search
 -----查询指定字段---------------------
 {
   "_source": ["topicId", "bizId"],
+  "from" : 0, "size" : 10,
   "query": {
     "bool": {
       "filter": [
@@ -241,3 +243,35 @@ cf-content-4/_search
     "rewardCount"
   ]
 }
+
+
+----------------------------
+POST index/type/_update_by_query
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "channelId": 1
+          }
+        },
+        {
+          "term": {
+            "dateVersion": 20190730
+          }
+        },
+        {
+          "term": {
+            "status": 1
+          }
+        }
+      ]
+    }
+  },
+  "script": {
+    "lang": "painless",
+    "inline": "ctx._source.articleUrl= 'https://jddx.jd.com/m/jdd/index.html?id='+ctx._source.articleId"
+  }
+}
+
