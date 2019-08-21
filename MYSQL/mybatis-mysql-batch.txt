@@ -1,0 +1,53 @@
+    <!--不存在执行插入，存在执行更新-->
+     <!--mysql dataSource.url配置需要添加allowMultiQueries=true-->
+    <insert id="upsertBatch" parameterType="java.util.List">
+        insert into sc_order_delivery_info
+        ( vender_id,order_id,carrier_id,carrier_name,delivery_id,operator)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.venderId},
+            #{item.orderId},
+            #{item.carrierId},
+            #{item.carrierName},
+            #{item.deliveryId},
+            #{item.operator}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        vender_id = VALUES(vender_id),
+        carrier_name = VALUES(carrier_name),
+        delivery_id = VALUES(delivery_id),
+        modified_date = now()
+    </insert>
+
+
+    <!--批量更新-->
+     <!--mysql dataSource.url配置需要添加allowMultiQueries=true-->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update sc_order_delivery_info
+            <set>
+                <if test="item.venderId !=null">
+                    vender_id=#{item.venderId},
+                </if>
+                <if test="item.carrierId !=null">
+                    carrier_id=#{item.carrierId},
+                </if>
+                <if test="item.carrierName !=null">
+                    carrier_name=#{item.carrierName},
+                </if>
+                <if test="item.deliveryId !=null">
+                    delivery_id=#{item.deliveryId},
+                </if>
+                <if test="item.syncDesc !=null">
+                    sync_desc=#{item.syncDesc},
+                </if>
+                <if test="item.operator !=null">
+                    operator=#{item.operator},
+                </if>
+                modified_date=now()
+            </set>
+            where order_id = ${item.orderId}
+        </foreach>
+    </update>
