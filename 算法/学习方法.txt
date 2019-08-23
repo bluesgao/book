@@ -1,0 +1,7 @@
+切题四件套
+1，clarification
+2，possible solutions
+   - compare(time/space)
+   - optimal
+3，coding
+4，test cases
