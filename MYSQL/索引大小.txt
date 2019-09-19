@@ -1,0 +1,40 @@
+1，show table status like "sbtest1"\G
+输出：
+*************************** 1. row ***************************
+           Name: sbtest2    
+         Engine: InnoDB    
+        Version: 10
+     Row_format: Dynamic
+           Rows: 197101536
+ Avg_row_length: 241
+    Data_length: 47530901504
+Max_data_length: 0
+   Index_length: 3117400064
+      Data_free: 5242880
+ Auto_increment: 200000001
+    Create_time: 2018-01-18 14:40:45
+    Update_time: NULL
+     Check_time: NULL
+      Collation: latin1_swedish_ci
+       Checksum: NULL
+ Create_options:
+        Comment:
+1 row in set (0.00 sec)
+
+解释：（https://dev.mysql.com/doc/refman/5.7/en/show-table-status.html?spm=a2c4e.10696291.0.0.45e919a4rqgEZ0）
+Name: The name of the table。
+Engine：The storage engine for the table。
+Version：The version number of the table's .frm file。（https://dev.mysql.com/doc/internals/en/frm-file-format.html）
+Row_format：The row-storage format。
+Rows：The number of rows。
+Avg_row_length：The average row length。
+Data_length：For MyISAM, Data_length is the length of the data file, in bytes。
+             For InnoDB, Data_length is the approximate amount of memory allocated for the clustered index, in bytes。
+Max_data_length：For MyISAM, Max_data_length is maximum length of the data file。
+                 Unused for InnoDB。
+Index_length：For MyISAM, Index_length is the length of the index file, in bytes。
+              For InnoDB, Index_length is the approximate amount of memory allocated for non-clustered indexes, in bytes。
+Data_free：The number of allocated but unused bytes。
+Auto_increment：The next AUTO_INCREMENT value。
+
+

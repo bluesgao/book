@@ -67,6 +67,35 @@ cf-content-1/_alias
     }
   }
 }
+——————————————————————————————————
+{
+  "_source": ["id", "esCreateDate"],
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "range": {
+            "esCreateDate": {
+              "gte": "2019-08-01 00:00:00"
+            }
+          }
+        },
+        {
+          "range": {
+            "esCreateDate": {
+              "lte": "2019-09-01 00:00:00"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "esCreateDate": "asc"
+    }
+  ]
+}
 
 -----------排序---where channelId=1 and dateVersion=20190705 and status=1 
 -----------order by orderId asc
