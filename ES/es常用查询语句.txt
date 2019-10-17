@@ -161,6 +161,19 @@ cf-channel-content/_search
   }
 }
 
+-------------按照created_time 按日聚合---------------------------
+{
+  "size": 0,
+  "aggs": {
+    "groupDate": {
+      "date_histogram": {
+        "field": "created_time",
+        "interval": "day",
+        "format": "yyyy-MM-dd HH:mm:ss"
+      }
+    }
+  }
+}
 
 -------------查询所有数据-----------------------
 cf-content-4/_search
